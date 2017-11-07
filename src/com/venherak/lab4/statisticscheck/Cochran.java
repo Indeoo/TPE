@@ -24,11 +24,11 @@ public class Cochran {
         double[] disp = new double[my.length];
         double dsum = 0;
         System.out.println();
-        System.out.println("Cochran criterion:");
+        System.out.println("COCHRAN CRITERIA");
         System.out.println("Computing dispersion:");
         for (int i = 0; i < disp.length; i++) {
-            disp[i] = Matrix.Dispersion(my[i]);
-            System.out.println("Dispersion[" + i + "] = " + disp[i]);
+            disp[i] = Matrix.getDispersion(my[i]);
+            System.out.println("getDispersion[" + i + "] = " + disp[i]);
             dsum += disp[i];
         }
         double dmax = disp[0];
@@ -49,20 +49,18 @@ public class Cochran {
         }
         int f1 = my[0].length - 1;
         double TGp = 0;
-        ;
         for (int i = 0; i < table[0].length; i++) {
-            if (table[0][i] < f1) {
-            } else {
+            if (!(table[0][i] < f1)) {
                 TGp = table[1][i];
                 System.out.println("Gt = " + TGp);
                 break;
             }
         }
         if (Gp > TGp) {
-            System.out.println("Gp > Gt: Dispersion isn't homogeneous. => m++");
+            System.out.println("Gp > Gt: getDispersion isn't homogeneous. => m++");
             return false;
         } else {
-            System.out.println("Gp < Gt: Dispersion is homogeneous.");
+            System.out.println("Gp < Gt: getDispersion is homogeneous.");
             return true;
         }
     }

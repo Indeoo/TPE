@@ -22,11 +22,11 @@ public class Student {
 
     public void count() {
         System.out.println();
-        System.out.println("Student criterion");
+        System.out.println("STUDENT CRITERIA");
         double[] disp = new double[my.length];
         double dsum = 0;
         for (int i = 0; i < disp.length; i++) {
-            disp[i] = Matrix.Dispersion(my[i]);
+            disp[i] = Matrix.getDispersion(my[i]);
             dsum += disp[i];
         }
         double daver = dsum / disp.length;
@@ -37,7 +37,7 @@ public class Student {
         for (int i = 0; i < b.length; i++) {
             b[i] = 0;
             for (int j = 0; j < mx[0].length; j++) {
-                b[i] += Matrix.MathWaiting(my[j]) * mx[j][i];
+                b[i] += Matrix.getExpectedValue(my[j]) * mx[j][i];
             }
             b[i] /= mx[0].length;
             System.out.println("B[" + i + "] = " + round(b[i], 4));
@@ -50,7 +50,7 @@ public class Student {
         int f1 = my[0].length - 1;
         int f2 = my.length;
         int f3 = f1 * f2;
-        double Tt = 0;
+        double Tt;
         if (f3 > 30) {
             Tt = 1.960;
         } else {

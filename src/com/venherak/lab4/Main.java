@@ -17,42 +17,37 @@ public class Main {
     private static double Y_MAX = 200 + (X1_MAX + X2_MAX + X3_MAX) / 3;
     private static double Y_MIN = 200 + (X1_MIN + X2_MIN + X3_MIN) / 3;
 
+    private static int m;
+    private static double[][] mx = new double[][]{{1, X1_MIN, X2_MIN, X3_MIN},
+            {1, X1_MIN, X2_MAX, X3_MAX}, {1, X1_MAX, X2_MIN, X3_MAX},
+            {1, X1_MAX, X2_MAX, X3_MIN}, {1, X1_MIN, X2_MIN, X3_MAX},
+            {1, X1_MIN, X2_MAX, X3_MIN}, {1, X1_MAX, X2_MIN, X3_MIN},
+            {1, X1_MAX, X2_MAX, X3_MAX}};
+    private static double[][] mxn = new double[][]{{1, -1, -1, -1}, {1, 1, -1, 1},
+            {1, 1, -1, 1}, {1, 1, 1, -1}, {1, -1, -1, 1},
+            {1, -1, 1, -1}, {1, 1, -1, -1}, {1, 1, 1, 1}};
+
+    private static boolean model = false;
+
     public static void main(String[] args) {
-        int m;
-        double[][] mx = new double[][]{{1, X1_MIN, X2_MIN, X3_MIN},
-                {1, X1_MIN, X2_MAX, X3_MAX}, {1, X1_MAX, X2_MIN, X3_MAX},
-                {1, X1_MAX, X2_MAX, X3_MIN}, {1, X1_MIN, X2_MIN, X3_MAX},
-                {1, X1_MIN, X2_MAX, X3_MIN}, {1, X1_MAX, X2_MIN, X3_MIN},
-                {1, X1_MAX, X2_MAX, X3_MAX}};
-        double[][] mxn = new double[][]{{1, -1, -1, -1}, {1, 1, -1, 1},
-                {1, 1, -1, 1}, {1, 1, 1, -1}, {1, -1, -1, 1},
-                {1, -1, 1, -1}, {1, 1, -1, -1}, {1, 1, 1, 1}};
         double[][] mx2 = new double[8][8];
         double[][] mxn2 = new double[8][8];
-        boolean model = false;
         for (int i = 0; i < mx.length; i++) {
             for (int j = 0; j < mx[0].length; j++) {
                 mx2[i][j] = mx[i][j];
                 mxn2[i][j] = mxn[i][j];
             }
         }
-        // x1*x2
         for (int i = 0; i < mx.length; i++) {
             mx2[i][4] = mx[i][1] * mx[i][2];
             mxn2[i][4] = mxn[i][1] * mxn[i][2];
-        }
-        // x1*x3
-        for (int i = 0; i < mx.length; i++) {
+
             mx2[i][5] = mx[i][1] * mx[i][3];
             mxn2[i][5] = mxn[i][1] * mxn[i][3];
-        }
-        // x2*x3
-        for (int i = 0; i < mx.length; i++) {
+
             mx2[i][6] = mx[i][2] * mx[i][3];
             mxn2[i][6] = mxn[i][2] * mxn[i][3];
-        }
-        // x1*x2*x3
-        for (int i = 0; i < mx.length; i++) {
+
             mx2[i][7] = mx[i][1] * mx[i][2] * mx[i][3];
             mxn2[i][7] = mxn[i][1] * mxn[i][2] * mxn[i][3];
         }
@@ -72,7 +67,7 @@ public class Main {
                 for (int g = 0; g < a.getMY()[0].length; g++) {
                     System.out.print(round(a.getMY()[j][g], 2) + "   ");
                 }
-                System.out.println(round(Matrix.MathWaiting(a.getMY()[j]), 2));
+                System.out.println(round(Matrix.getExpectedValue(a.getMY()[j]), 2));
             }
             System.out.println("m = " + m);
             Cochran c = new Cochran(a.getMY());
@@ -124,7 +119,7 @@ public class Main {
                     for (int g = 0; g < a.getMY()[0].length; g++) {
                         System.out.printf(round(a.getMY()[j][g], 2) + "   ");
                     }
-                    System.out.println(round(Matrix.MathWaiting(a.getMY()[j]),
+                    System.out.println(round(Matrix.getExpectedValue(a.getMY()[j]),
                             2));
                 }
                 System.out.println();
@@ -173,7 +168,7 @@ public class Main {
         }
     }
 
-    public static double round(final double a, final int b) {
+    private static double round(final double a, final int b) {
         BigDecimal x = new BigDecimal(a);
         x = x.setScale(b, BigDecimal.ROUND_HALF_UP);
         return x.doubleValue();

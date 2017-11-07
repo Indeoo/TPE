@@ -1,17 +1,18 @@
 package com.venherak.lab4;
 
-public class Matrix {private double my[][];
+public class Matrix {
+    private double my[][];
     private double[] averY;
     private double mx[][];
     private int m;
-    private double ymin;
-    private double ymax;
+    private double yMin;
+    private double yMax;
     private double[] bcoeff;
 
-    public Matrix(double[][] mx, double ymin, double ymax, int m) {
+    public Matrix(double[][] mx, double yMin, double yMax, int m) {
         this.mx = mx;
-        this.ymin = ymin;
-        this.ymax = ymax;
+        this.yMin = yMin;
+        this.yMax = yMax;
         this.m = m;
     }
 
@@ -19,16 +20,18 @@ public class Matrix {private double my[][];
         my = new double[mx[0].length][m];
         for (int i = 0; i < my.length; i++) {
             for (int j = 0; j < m; j++) {
-                my[i][j] = (ymin + Math.random() * (ymax - ymin + 1.0));
+                my[i][j] = (yMin + Math.random() * (yMax - yMin + 1.0));
             }
         }
     }
+
     public double[][] getMY() {
         if (my == null) {
             createMY();
         }
         return my;
     }
+
     public void countCoeff() {
         System.out.println();
         System.out.println("Computing coefficient of equation:");
@@ -47,7 +50,6 @@ public class Matrix {private double my[][];
             averY[i] /= my[i].length;
             y += averY[i];
         }
-        y /= my.length;
         for (int i = 0; i < mxi.length; i++) {
             mxi[i] = 0;
             mai[i] = 0;
@@ -57,9 +59,6 @@ public class Matrix {private double my[][];
             }
             mxi[i] /= mx[0].length;
             mai[i] /= mx[0].length;
-        }
-        for (double aMxi : mxi) {
-            // System.out.println("mx" + i + " = " + mxi[i]);
         }
         for (int i = 0; i < mai.length; i++) {
             System.out.println("a" + (i + 1) + " = " + mai[i]);
@@ -91,7 +90,7 @@ public class Matrix {private double my[][];
                 base[i][j] = maij[i][j];
             }
         }
-        double dbase = determinant(base);
+        double dbase = getDeterminant(base);
         double[] bi = new double[mx[0].length];
         bcoeff = new double[bi.length];
         double[][] a;
@@ -105,23 +104,26 @@ public class Matrix {private double my[][];
             for (int j = 0; j < mx[0].length; j++) {
                 a[j][i] = mai[j];
             }
-            bi[i] = determinant(a);
+            bi[i] = getDeterminant(a);
             bcoeff[i] = bi[i] / dbase;
         }
     }
+
     public double[] getCoeff() {
         if (bcoeff == null) {
             countCoeff();
         }
         return bcoeff;
     }
+
     public double[] getAverY() {
         if (averY == null) {
             countCoeff();
         }
         return averY;
     }
-    private double determinant(double[][] arr) {
+
+    private double getDeterminant(double[][] arr) {
         double det = 0;
         int len = arr.length;
         if (len == 1) {
@@ -142,15 +144,15 @@ public class Matrix {private double my[][];
                         ii++;
                 }
                 if (g % 2 == 0) {
-                    det += arr[0][g] * determinant(minor);
+                    det += arr[0][g] * getDeterminant(minor);
                 } else {
-                    det += -arr[0][g] * determinant(minor);
+                    det += -arr[0][g] * getDeterminant(minor);
                 }
             }
         return det;
     }
 
-    public static double Dispersion(double[] arr) {
+    public static double getDispersion(double[] arr) {
         double G = 0;
         double M = 0;
         for (double anArr1 : arr) {
@@ -164,7 +166,7 @@ public class Matrix {private double my[][];
         return G;
     }
 
-    public static double MathWaiting(double[] arr) {
+    public static double getExpectedValue(double[] arr) {
         double M = 0;
         for (double anArr : arr) {
             M += anArr;

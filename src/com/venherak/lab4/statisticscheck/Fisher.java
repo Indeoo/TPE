@@ -43,7 +43,7 @@ public class Fisher {
     }
     public void count(){
         System.out.println();
-        System.out.println("Fisher criterion");
+        System.out.println("FISHER CRITERIA");
         d = 0;
         for (int aCb : cb) {
             if (aCb == 1) {
@@ -57,7 +57,7 @@ public class Fisher {
         double[] disp = new double[my.length];
         double dsum = 0;
         for (int i = 0; i < disp.length; i++) {
-            disp[i] = Matrix.Dispersion(my[i]);
+            disp[i] = Matrix.getDispersion(my[i]);
             dsum += disp[i];
         }
         double daver = dsum / disp.length;
@@ -73,7 +73,7 @@ public class Fisher {
             }
         }
         for (int i = 0; i < my.length; i++) {
-            dsum += Math.pow(yx[i] - Matrix.MathWaiting(my[i]), 2);
+            dsum += Math.pow(yx[i] - Matrix.getExpectedValue(my[i]), 2);
         }
         Dad *= dsum;
         System.out.println("S^2ad = " + Dad);
