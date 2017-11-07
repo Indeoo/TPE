@@ -5,7 +5,8 @@ import com.venherak.lab4.statisticscheck.Fisher;
 import com.venherak.lab4.statisticscheck.Student;
 
 import java.math.BigDecimal;
-import java.util.Formatter;
+
+import static com.venherak.lab4.Matrix.getExpectedValue;
 
 public class Main {
     private static double X1_MIN = 20;
@@ -52,31 +53,30 @@ public class Main {
             mxn2[i][7] = mxn[i][1] * mxn[i][2] * mxn[i][3];
         }
         for (m = 3; m < 100; m++) {
-            Matrix a = new Matrix(mx, Y_MIN, Y_MAX, m);
-            a.createMY();
+            Matrix MA = new Matrix(mx, Y_MIN, Y_MAX, m);
+
             System.out.print("X0     X1     X2     X3     X1*X2     X1*X3     X2*X3     X1*X2*X3    ");
             for (int i = 0; i < m; i++)
                 System.out.print("Y" + (i + 1) + "       ");
             System.out.print("<Y>\n");
-            Formatter fmt = new Formatter();
-            for (int j = 0; j < a.getMY().length; j++) {
+            for (int j = 0; j < MA.getMY().length; j++) {
                 for (int ii = 0; ii < mx2[0].length; ii++) {
                     System.out.print(round(mx2[j][ii], 2) + "   ");
                 }
                 System.out.print("   ");
-                for (int g = 0; g < a.getMY()[0].length; g++) {
-                    System.out.print(round(a.getMY()[j][g], 2) + "   ");
+                for (int g = 0; g < MA.getMY()[0].length; g++) {
+                    System.out.print(round(MA.getMY()[j][g], 2) + "   ");
                 }
-                System.out.println(round(Matrix.getExpectedValue(a.getMY()[j]), 2));
+                System.out.println(round(getExpectedValue(MA.getMY()[j]), 2));
             }
             System.out.println("m = " + m);
-            Cochran c = new Cochran(a.getMY());
-            if (!c.check()) {
+            Cochran cochran = new Cochran(MA.getMY());
+            if (!cochran.check()) {
                 continue;
             }
-            a.countCoeff();
-            double[] b = a.getCoeff();
-            double[][] my = a.getMY();
+            MA.countCoeff();
+            double[] b = MA.getCoeff();
+            double[][] my = MA.getMY();
             for (int i = 0; i < b.length; i++) {
                 System.out.println("b[" + i + "] = " + b[i]);
             }
@@ -87,14 +87,13 @@ public class Main {
                 }
                 System.out.println("y[" + i + "] = " + py);
             }
-            Student s = new Student(my, mxn);
-            s.count();
-            int[] cb = s.getChangedCoeff();
+            Student student = new Student(my, mxn);
+            student.count();
+            int[] cb = student.getChangedCoeff();
             Fisher f = new Fisher(my, mx, cb, b);
             f.count();
             if (f.check()) {
-                System.out.println("Model adequate");
-                System.out.println("y^ = (" + b[0] * cb[0] + ") + (" + b[1]
+                System.out.println("Model adequate\n" + "y^ = (" + b[0] * cb[0] + ") + (" + b[1]
                         * cb[1] + ")*X1 + (" + b[2] * cb[2] + ")*X2 + (" + b[3]
                         * cb[3] + ")*X3");
                 model = true;
@@ -105,33 +104,33 @@ public class Main {
         }
         if (!model) {
             for (m = 3; m < 100; m++) {
-                Matrix a = new Matrix(mx2, Y_MIN, Y_MAX, m);
-                a.createMY();
+                Matrix MB = new Matrix(mx2, Y_MIN, Y_MAX, m);
+
                 System.out.print("X0     X1     X2     X3     X1*X2     X1*X3     X2*X3     X1*X2*X3    ");
                 for (int i = 0; i < m; i++)
                     System.out.print("Y" + (i + 1) + "       ");
                 System.out.println("<Y>");
-                for (int j = 0; j < a.getMY().length; j++) {
+                for (int j = 0; j < MB.getMY().length; j++) {
                     for (int ii = 0; ii < mx2[0].length; ii++) {
                         System.out.printf(round(mx2[j][ii], 2) + "   ");
                     }
                     System.out.print("   ");
-                    for (int g = 0; g < a.getMY()[0].length; g++) {
-                        System.out.printf(round(a.getMY()[j][g], 2) + "   ");
+                    for (int g = 0; g < MB.getMY()[0].length; g++) {
+                        System.out.printf(round(MB.getMY()[j][g], 2) + "   ");
                     }
-                    System.out.println(round(Matrix.getExpectedValue(a.getMY()[j]),
+                    System.out.println(round(getExpectedValue(MB.getMY()[j]),
                             2));
                 }
                 System.out.println();
                 System.out.println("m = " + m);
-                Cochran c = new Cochran(a.getMY());
+                Cochran c = new Cochran(MB.getMY());
                 if (!c.check()) {
                     continue;
                 }
-                a.countCoeff();
-                double[] b = a.getCoeff();
-                double[] y = a.getAverY();
-                double[][] my = a.getMY();
+                MB.countCoeff();
+                double[] b = MB.getCoeff();
+                double[] y = MB.getAverY();
+                double[][] my = MB.getMY();
                 for (int i = 0; i < b.length; i++) {
                     System.out.println("b[" + i + "] = " + b[i]);
                 }
@@ -149,12 +148,12 @@ public class Main {
                 s.count();
                 int[] cb = s.getChangedCoeff();
                 System.out.println("");
-                Fisher f = new Fisher(my, mx2, cb, b);
-                f.count();
-                if (f.check()) {
-                    System.out.println("Model adequate to experimental values");
+                Fisher fisher = new Fisher(my, mx2, cb, b);
+                fisher.count();
+                if (fisher.check()) {
                     model = true;
-                    System.out.println("y^ = (" + b[0] * cb[0] + ") + (" + b[1]
+                    System.out.println("Model adequate to experimental values\n"
+                            + "y^ = (" + b[0] * cb[0] + ") + (" + b[1]
                             * cb[1] + ")*X1 + (" + b[2] * cb[2] + ")*X2 + ("
                             + b[3] * cb[3] + ")*X3 + (" + b[4] * cb[4]
                             + ")*X1*X2 + (" + b[5] * cb[5] + ")*X1*X3 + ("
@@ -169,9 +168,9 @@ public class Main {
     }
 
     private static double round(final double a, final int b) {
-        BigDecimal x = new BigDecimal(a);
-        x = x.setScale(b, BigDecimal.ROUND_HALF_UP);
-        return x.doubleValue();
+        BigDecimal bigDecimal = new BigDecimal(a);
+        bigDecimal = bigDecimal.setScale(b, BigDecimal.ROUND_HALF_UP);
+        return bigDecimal.doubleValue();
     }
 }
 

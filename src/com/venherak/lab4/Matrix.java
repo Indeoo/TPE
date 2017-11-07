@@ -14,9 +14,7 @@ public class Matrix {
         this.yMin = yMin;
         this.yMax = yMax;
         this.m = m;
-    }
 
-    public void createMY() {
         my = new double[mx[0].length][m];
         for (int i = 0; i < my.length; i++) {
             for (int j = 0; j < m; j++) {
@@ -24,20 +22,14 @@ public class Matrix {
             }
         }
     }
-
     public double[][] getMY() {
-        if (my == null) {
-            createMY();
-        }
         return my;
     }
 
     public void countCoeff() {
         System.out.println();
         System.out.println("Computing coefficient of equation:");
-        if (my == null) {
-            createMY();
-        }
+
         double[] mxi = new double[mx[0].length];
         double[] mai = new double[mx[0].length];
         averY = new double[my.length];
