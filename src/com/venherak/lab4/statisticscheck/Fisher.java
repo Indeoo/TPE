@@ -1,20 +1,18 @@
 package com.venherak.lab4.statisticscheck;
 
-import com.venherak.lab4.Matrix;
+import static com.venherak.lab4.Matrix.getDispersion;
+import static com.venherak.lab4.Matrix.getExpectedValue;
+import static java.lang.Math.pow;
 
 public class Fisher {
     private double[][] my;
     private double[][] mx;
-    private int[] cb;
-    private double[] b;
     private int d;
     private double Fp;
     private double[][] table;
     public Fisher(double[][] my, double[][] mx, int[] cb, double[] b) {
         this.my = my;
-        this.cb = cb;
         this.mx = mx;
-        this.b = b;
         table = new double[][]{
                 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12}, //f4
                 {1, 161.45, 199.50, 215.71, 224.58, 230.16, 233.99, 236.77, 238.88, 240.54, 241.88, 245.95},
@@ -40,8 +38,6 @@ public class Fisher {
                 {30, 4.2, 3.3, 2.9, 2.7, 2.5, 2.4, 2.4, 2.3, 2.3, 2.2, 2.2, 2.1},
                 {120, 3.9, 3.1, 2.7, 2.5, 2.3, 2.2, 2.1, 2.05, 2.0, 1.9, 1.85, 1.8}};
 
-    }
-    public void count(){
         System.out.println();
         System.out.println("FISHER CRITERIA");
         d = 0;
@@ -57,7 +53,7 @@ public class Fisher {
         double[] disp = new double[my.length];
         double dsum = 0;
         for (int i = 0; i < disp.length; i++) {
-            disp[i] = Matrix.getDispersion(my[i]);
+            disp[i] = getDispersion(my[i]);
             dsum += disp[i];
         }
         double daver = dsum / disp.length;
@@ -73,12 +69,13 @@ public class Fisher {
             }
         }
         for (int i = 0; i < my.length; i++) {
-            dsum += Math.pow(yx[i] - Matrix.getExpectedValue(my[i]), 2);
+            dsum += pow(yx[i] - getExpectedValue(my[i]), 2);
         }
         Dad *= dsum;
         System.out.println("S^2ad = " + Dad);
         Fp = Dad / daver;
         System.out.println("Fp = " + Fp);
+
     }
     public boolean check() {
         int f1 = my[0].length - 1;

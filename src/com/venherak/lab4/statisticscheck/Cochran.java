@@ -1,6 +1,6 @@
 package com.venherak.lab4.statisticscheck;
 
-import com.venherak.lab4.Matrix;
+import static com.venherak.lab4.Matrix.getDispersion;
 
 public class Cochran {
     private double[][] my;
@@ -22,22 +22,22 @@ public class Cochran {
 
     private void count() {
         double[] disp = new double[my.length];
-        double dsum = 0;
+        double dSum = 0;
         System.out.println();
         System.out.println("COCHRAN CRITERIA");
         System.out.println("Computing dispersion:");
         for (int i = 0; i < disp.length; i++) {
-            disp[i] = Matrix.getDispersion(my[i]);
+            disp[i] = getDispersion(my[i]);
             System.out.println("getDispersion[" + i + "] = " + disp[i]);
-            dsum += disp[i];
+            dSum += disp[i];
         }
-        double dmax = disp[0];
+        double dMax = disp[0];
         for (int i = 1; i < disp.length; i++) {
-            if (dmax < disp[i]) {
-                dmax = disp[i];
+            if (dMax < disp[i]) {
+                dMax = disp[i];
             }
         }
-        Gp = dmax / dsum;
+        Gp = dMax / dSum;
         System.out.println("Gp = " + Gp);
     }
 

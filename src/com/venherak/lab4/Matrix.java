@@ -4,37 +4,32 @@ public class Matrix {
     private double my[][];
     private double[] averY;
     private double mx[][];
-    private int m;
-    private double yMin;
-    private double yMax;
     private double[] bcoeff;
 
-    public Matrix(double[][] mx, double yMin, double yMax, int m) {
-        this.mx = mx;
-        this.yMin = yMin;
-        this.yMax = yMax;
-        this.m = m;
+    public Matrix(double[][] matrixX, double yMin, double yMax, int m) {
+        this.mx = matrixX;
 
-        my = new double[mx[0].length][m];
+        my = new double[matrixX[0].length][m];
         for (int i = 0; i < my.length; i++) {
             for (int j = 0; j < m; j++) {
                 my[i][j] = (yMin + Math.random() * (yMax - yMin + 1.0));
             }
         }
     }
+
     public double[][] getMY() {
         return my;
     }
 
-    public void countCoeff() {
+    public void countCoefficient() {
         System.out.println();
         System.out.println("Computing coefficient of equation:");
 
         double[] mxi = new double[mx[0].length];
         double[] mai = new double[mx[0].length];
         averY = new double[my.length];
-        double y = 0;
         for (int i = 0; i < my.length; i++) {
+            double y = 0;
             averY[i] = 0;
             for (int j = 0; j < my[i].length; j++) {
                 averY[i] += my[i][j];
@@ -67,8 +62,7 @@ public class Matrix {
         }
         for (int i = 0; i < maij.length; i++) {
             for (int j = 0; j < maij[0].length; j++) {
-                System.out.println("a" + (i + 1) + "" + (j + 1) + " = "
-                        + maij[i][j]);
+                System.out.println("a" + (i + 1) + "" + (j + 1) + " = " + maij[i][j]);
             }
         }
         double[][] base = new double[mx[0].length][mx[0].length];
@@ -78,9 +72,7 @@ public class Matrix {
         }
 
         for (int i = 1; i < base.length; i++) {
-            for (int j = 1; j < base[i].length; j++) {
-                base[i][j] = maij[i][j];
-            }
+            System.arraycopy(maij[i], 1, base[i], 1, base[i].length - 1);
         }
         double dbase = getDeterminant(base);
         double[] bi = new double[mx[0].length];
@@ -89,9 +81,7 @@ public class Matrix {
         for (int i = 0; i < bi.length; i++) {
             a = new double[base.length][base[0].length];
             for (int i2 = 0; i2 < a.length; i2++) {
-                for (int j2 = 0; j2 < a[0].length; j2++) {
-                    a[i2][j2] = base[i2][j2];
-                }
+                System.arraycopy(base[i2], 0, a[i2], 0, a[0].length);
             }
             for (int j = 0; j < mx[0].length; j++) {
                 a[j][i] = mai[j];
@@ -103,14 +93,14 @@ public class Matrix {
 
     public double[] getCoeff() {
         if (bcoeff == null) {
-            countCoeff();
+            countCoefficient();
         }
         return bcoeff;
     }
 
     public double[] getAverY() {
         if (averY == null) {
-            countCoeff();
+            countCoefficient();
         }
         return averY;
     }
