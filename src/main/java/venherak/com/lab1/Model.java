@@ -1,17 +1,17 @@
-package main.java.venherak.com.lab1;
+package venherak.com.lab1;
 
 import java.util.Random;
 
 public class Model {
 
-    double leftLimit;
-    double rightLimit;
+    private double leftLimit;
+    private double rightLimit;
 
-    double[] factorArray;
-    double[][] matrixPlan;
-    double[] standard;
-    double[] interval;
-    int optimum;
+    private double[] factorArray;
+    private double[][] matrixPlan;
+    private double[] standard;
+    private double[] interval;
+    private int optimum;
 
     Model(double a, double b, double a0, double a1, double a2, double a3) {
         leftLimit = a;
@@ -27,8 +27,7 @@ public class Model {
     }
 
     public double[] getRow(int i) {
-        double[] result = {matrixPlan[i][0], matrixPlan[i][1], matrixPlan[i][2]};
-        return result;
+        return new double[]{matrixPlan[i][0], matrixPlan[i][1], matrixPlan[i][2]};
     }
 
     public double[][] getMatrixPlan() {

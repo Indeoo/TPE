@@ -1,4 +1,4 @@
-package main.java.venherak.com.lab1;
+package venherak.com.lab1;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,62 +8,64 @@ import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.lang.Double.parseDouble;
+
 public class Viewer {
 
-    public static int FRAME_WIDTH = 1400;
-    public static int FRAME_HEIGHT = 300;
+    private static int FRAME_WIDTH = 1400;
+    private static int FRAME_HEIGHT = 300;
 
-    JPanel panel = new JPanel();
-    GridLayout g = new GridLayout(1, 2);
-    JPanel panel1 = new JPanel();
-    GridLayout g1 = new GridLayout(2, 1);
-    JPanel panel2 = new JPanel();
-    JPanel panel1a = new JPanel();
-    GridLayout g1a = new GridLayout(3, 2);
-    JPanel panel1b = new JPanel();
-    GridLayout g1b = new GridLayout(3, 2);
-    JPanel panel1a1 = new JPanel();
-    GridLayout g1a1 = new GridLayout(2, 2);
-    JPanel panel1a2 = new JPanel();
-    GridLayout g1a2 = new GridLayout(2, 2);
-    JPanel panel1a3 = new JPanel();
-    GridLayout g1a3 = new GridLayout(2, 2);
+    private JPanel panel = new JPanel();
+    private GridLayout g = new GridLayout(1, 2);
+    private JPanel panel1 = new JPanel();
+    private GridLayout g1 = new GridLayout(2, 1);
+    private JPanel panel2 = new JPanel();
+    private JPanel panel1a = new JPanel();
+    private GridLayout g1a = new GridLayout(3, 2);
+    private JPanel panel1b = new JPanel();
+    private GridLayout g1b = new GridLayout(3, 2);
+    private JPanel panel1a1 = new JPanel();
+    private GridLayout g1a1 = new GridLayout(2, 2);
+    private JPanel panel1a2 = new JPanel();
+    private GridLayout g1a2 = new GridLayout(2, 2);
+    private JPanel panel1a3 = new JPanel();
+    private GridLayout g1a3 = new GridLayout(2, 2);
 
-    JPanel panel1b1 = new JPanel();
-    JPanel panel1b2 = new JPanel();
-    JPanel panel1b3 = new JPanel();
-    JPanel panel1b4 = new JPanel();
+    private JPanel panel1b1 = new JPanel();
+    private JPanel panel1b2 = new JPanel();
+    private JPanel panel1b3 = new JPanel();
+    private JPanel panel1b4 = new JPanel();
 
-    JPanel panel6 = new JPanel();
-    GridLayout g6 = new GridLayout(1, 3);
-    JPanel panel7 = new JPanel();
+    private JPanel panel6 = new JPanel();
+    private GridLayout g6 = new GridLayout(1, 3);
+    private JPanel panel7 = new JPanel();
 
-    JLabel label01 = new JLabel("Limits of figures");
-    JLabel label02 = new JLabel("Factors of regressions");
-    JButton task03 = new JButton("Generate");
+    private JLabel label01 = new JLabel("Limits of figures");
+    private JLabel label02 = new JLabel("Factors of regressions");
+    private JButton task03 = new JButton("Generate");
 
-    JLabel label04 = new JLabel("Left limit");
-    JTextField field05 = new JTextField(10);
-    JLabel label06 = new JLabel("Right limit");
-    JTextField field07 = new JTextField(10);
-    JLabel label08 = new JLabel("Factor a0");
-    JTextField field09 = new JTextField(10);
-    JLabel label10 = new JLabel("Factor a1");
-    JTextField field11 = new JTextField(10);
-    JLabel label12 = new JLabel("Factor a2");
-    JTextField field13 = new JTextField(10);
-    JLabel label14 = new JLabel("Factor a3");
-    JTextField field15 = new JTextField(10);
+    private JLabel label04 = new JLabel("Left limit");
+    private JTextField field05 = new JTextField(10);
+    private JLabel label06 = new JLabel("Right limit");
+    private JTextField field07 = new JTextField(10);
+    private JLabel label08 = new JLabel("Factor a0");
+    private JTextField field09 = new JTextField(10);
+    private JLabel label10 = new JLabel("Factor a1");
+    private JTextField field11 = new JTextField(10);
+    private JLabel label12 = new JLabel("Factor a2");
+    private JTextField field13 = new JTextField(10);
+    private JLabel label14 = new JLabel("Factor a3");
+    private JTextField field15 = new JTextField(10);
 
-    JLabel label16 = new JLabel("Standard");
-    JLabel label17 = new JLabel("Interval");
-    JLabel label18 = new JLabel("Optimum");
-    JLabel label19 = new JLabel("Criterion: max value of Yi");
+    private JLabel label16 = new JLabel("Standard");
+    private JLabel label17 = new JLabel("Interval");
+    private JLabel label18 = new JLabel("Optimum");
+    private JLabel label19 = new JLabel("Criterion: max value of Yi");
 
-    JTable table1 = new JTable(9, 8);
-    JTable table2 = new JTable(2, 4);
-    JTable table3 = new JTable(2, 3);
-    JTable table4 = new JTable(2, 4);
+    private JTable table1 = new JTable(9, 8);
+    private JTable table2 = new JTable(2, 4);
+    private JTable table3 = new JTable(2, 3);
+    private JTable table4 = new JTable(2, 4);
 
     public Viewer() {
 
@@ -165,12 +167,12 @@ public class Viewer {
             public void actionPerformed(ActionEvent ae) {
                 for (int i = 0; i < 9; i++)
                     table1.setRowHeight(i, 15);
-                double a = Double.parseDouble(field05.getText());
-                double b = Double.parseDouble(field07.getText());
-                double a0 = Double.parseDouble(field09.getText());
-                double a1 = Double.parseDouble(field11.getText());
-                double a2 = Double.parseDouble(field13.getText());
-                double a3 = Double.parseDouble(field15.getText());
+                double a = parseDouble(field05.getText());
+                double b = parseDouble(field07.getText());
+                double a0 = parseDouble(field09.getText());
+                double a1 = parseDouble(field11.getText());
+                double a2 = parseDouble(field13.getText());
+                double a3 = parseDouble(field15.getText());
                 Model model = new Model(a, b, a0, a1, a2, a3);
                 double matrix[][] = model.getMatrixPlan();
                 for (int i = 0; i < 8; i++)

@@ -1,4 +1,4 @@
-package main.java.venherak.com.lab1;
+package venherak.com.lab1;
 
 public class Main {
 
