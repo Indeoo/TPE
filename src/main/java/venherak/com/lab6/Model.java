@@ -7,12 +7,6 @@ import static java.lang.Math.random;
 import static venherak.com.lab6.StatistickTables.*;
 
 public class Model {
-    private String matrixPlan = "";
-    private String regressionEquation = "";
-    private String student = "";
-    private String average = "";
-    private String findings = "";
-    private String finalRegres = "";
     private double[] funkCoeff;
 
     public double getStudent(int f3) {
@@ -320,15 +314,6 @@ public class Model {
         return res;
     }
 
-    public void print() {
-        System.out.println(matrixPlan);
-        System.out.println(regressionEquation);
-        System.out.println(student);
-        System.out.println(average);
-        System.out.println(findings);
-        System.out.println(finalRegres);
-    }
-
     public void printResult(
             int N, double[] xMax, double[] xMin, int m,
             double[][] xMatrix, double[] yser, int koef, double[][] y,
@@ -336,6 +321,12 @@ public class Model {
             double tableFisher, double tableStuident, double[] tmod,
             double pracCohren, double pracFisher
     ) {
+        String matrixPlan = "";
+        String regressionEquation = "";
+        String student = "";
+        String average = "";
+        String findings = "";
+        String finalRegres = "";
 
         if (N == 4) matrixPlan = matrixPlan + ("Дробний факторний експеримент\n");
         if (N == 8) matrixPlan = matrixPlan + ("Повний факторний експеримент\n");
@@ -454,8 +445,12 @@ public class Model {
             if (tmod[9] > tableStuident) finalRegres += String.format("%9.2f*x2^2 +", b[5]);
             if (tmod[10] > tableStuident) finalRegres += String.format("%9.2f*x3^2 +", b[6]);
         }
-
-
+        System.out.println(matrixPlan);
+        System.out.println(regressionEquation);
+        System.out.println(student);
+        System.out.println(average);
+        System.out.println(findings);
+        System.out.println(finalRegres);
     }
 }
 
