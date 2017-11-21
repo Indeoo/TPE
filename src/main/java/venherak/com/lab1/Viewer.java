@@ -1,16 +1,12 @@
-package com.venherak.lab1;
+package main.java.venherak.com.lab1;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-import javax.swing.*;
 import javax.swing.table.TableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Formatter;
-import java.util.LinkedList;
 
 public class Viewer {
 

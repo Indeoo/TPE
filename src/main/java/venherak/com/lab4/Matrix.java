@@ -1,4 +1,4 @@
-package com.venherak.lab4;
+package main.java.venherak.com.lab4;
 
 public class Matrix {
     private double my[][];

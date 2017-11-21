@@ -1,4 +1,4 @@
-package com.venherak.lab2;
+package main.java.venherak.com.lab2;
 
 public class Experiment {
 

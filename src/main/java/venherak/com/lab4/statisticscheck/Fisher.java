@@ -1,7 +1,7 @@
-package com.venherak.lab4.statisticscheck;
+package main.java.venherak.com.lab4.statisticscheck;
 
-import static com.venherak.lab4.Matrix.getDispersion;
-import static com.venherak.lab4.Matrix.getExpectedValue;
+import static main.java.venherak.com.lab4.Matrix.getDispersion;
+import static main.java.venherak.com.lab4.Matrix.getExpectedValue;
 import static java.lang.Math.pow;
 
 public class Fisher {

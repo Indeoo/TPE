@@ -1,10 +1,10 @@
-package com.venherak.lab4;
+package main.java.venherak.com.lab4;
 
-import com.venherak.lab4.statisticscheck.*;
+import main.java.venherak.com.lab4.statisticscheck.*;
 
 import java.math.BigDecimal;
 
-import static com.venherak.lab4.Matrix.getExpectedValue;
+import static main.java.venherak.com.lab4.Matrix.getExpectedValue;
 
 public class Main {
     private static final double X1_MIN = 20;
